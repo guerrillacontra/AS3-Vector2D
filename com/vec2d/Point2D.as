@@ -34,10 +34,12 @@ package com.vec2d
 		 * @param	out A Point2D where the result of a + b will be stored.
 		 */
 		[Inline]
-		public static function add(a:Point2D, b:Point2D, out:Point2D):void
+		public static function add(a:Point2D, b:Point2D, out:Point2D):Point2D
 		{
 			out.x = a.x + b.x;
 			out.y = a.y + b.y;
+			
+			return out;
 		}
 		
 		/**
@@ -47,10 +49,12 @@ package com.vec2d
 		 * @param	out A Point2D where the result of a - b will be stored.
 		 */
 		[Inline]
-		public static function sub(a:Point2D, b:Point2D, out:Point2D):void
+		public static function sub(a:Point2D, b:Point2D, out:Point2D):Point2D
 		{
 			out.x = a.x - b.x;
 			out.y = a.y - b.y;
+			
+			return out;
 		}
 		
 		/**
@@ -60,10 +64,12 @@ package com.vec2d
 		 * @param	out A Point2D where the result of a * b will be stored.
 		 */
 		[Inline]
-		public static function mult(a:Point2D, b:Point2D, out:Point2D):void
+		public static function mult(a:Point2D, b:Point2D, out:Point2D):Point2D
 		{
 			out.x = a.x * b.x;
 			out.y = a.y * b.y;
+			
+			return out;
 		}
 		
 		/**
@@ -74,10 +80,12 @@ package com.vec2d
 		 * @param	out A Point2D where the result of a /b will be stored.
 		 */
 		[Inline]
-		public static function divide(a:Point2D, b:Point2D, out:Point2D):void
+		public static function divide(a:Point2D, b:Point2D, out:Point2D):Point2D
 		{
 			out.x = b.x ? 0 : a.x / b.x;
 			out.y = b.y ? 0 : a.y / b.y;
+			
+			return out;
 		}
 		
 		
