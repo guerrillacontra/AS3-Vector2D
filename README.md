@@ -1,16 +1,7 @@
 # AS3-Vector2D
 
 
-A fast simple Vector2D tool for AS3 projects that supports inlining.
-
-Unlike other Vector tools in AS3, this one seperates the data that stores the x,y
-values from the vector operations.
-
-This allows for faster operations with more practical use and less bloat while still
-being easy to use.
-
-The design also allows developers to pool and cache instances in the way they like too,
-which can be hard to achieve in other implementations around.
+A lean Vector2D tool for AS3 projects that supports inlining.
 
 The following operations can be applied (and more):
 * to/from radians
@@ -22,70 +13,118 @@ The following operations can be applied (and more):
 * reflection
 * parallel testing
 * orthogonal testing
-* sign between
+* sign between two vectors
 
+
+## Design Choices
+To make AS3-Vector2D fast and efficient, the vector operations are applied as static
+inline'd functions against a Point2D data structure.
+
+This will allow you to use Point2D very efficiently while keeping the vector operations
+clean and simple.
+
+You will notice some of the operations have an "out" function argument...
+
+> function project(v1:Point2D, normal:Point2D, **out:Point2D**)
+
+...This is because AS3-Vector2D is cache friendly and allows developers to re-use
+Point2D instances to speed up performance as shown in the examples below!
 
 
 ## How to use
 
-
 A general work flow would be to:
 
-1. Create Point2D instances to store the x & y components
+1. Create Point2D instances to store the x and y components
 2. Use the Vector2D tool too perform operations on the Point2D instances
 
-## Example
-
+## Scenario
 
 A scenario where you want the player to move towards an enemy at a fixed speed
 until the player touches the enemy...
 
-### Example without caching
+The output from both examples will be:
+
+>Player {x:100 + y:200}
+
+>Player {x:150 + y:200}
+
+>Player {x:200 + y:200}
+
+### Example 1 - without caching
 
 
 			//Mock objects representing the player and enemy data...
-			var p:Object = { x:100, y:200, vx:0, vy:0, speed:60, radius:32 };
-			var e:Object = { x:200, y:200, vx:0, vy:0, radius:32 };
+			var p:Object = {x: 100, y: 200, vx: 0, vy: 0, speed: 50, radius: 10};
+			var e:Object = {x: 200, y: 200, vx: 0, vy: 0, radius: 10};
 			
 			var playerPos:Point2D = new Point2D(p.x, p.y);
 			var enemyPos:Point2D = new Point2D(e.x, e.y);
 			
-			var delta:Point2D = Point2D.sub(enemyPos, playerPos, new Point2D());
+			var distance:Number = Number.MAX_VALUE;
 			
-			var distance:Number = Vector2D.findLength(delta);
 			
-			if (distance > p.radius + e.radius)
+			while (true)
 			{
-				var impluse:Point2D = Point2D.scale(Vector2D.normalise(delta, new Point2D()), p.speed);
-				p.vx = impluse.x;
-				p.vy = impluse.y;
-			}
-			
-### Example with caching
-
-
-			//Mock objects representing the player and enemy data...
-			var p:Object = { x:100, y:200, vx:0, vy:0, speed:60, radius:32 };
-			var e:Object = { x:200, y:200, vx:0, vy:0, radius:32 };
-			
-			
-			var cachedPoint:Point2D = new Point2D();
+				trace("Player {x:" + playerPos.x + " + " + "y:" + playerPos.y + "}"); 
 				
+				var delta:Point2D = Point2D.sub(enemyPos, playerPos, new Point2D());
+				
+				distance = Vector2D.findLength(delta);
+				
+				if (distance > p.radius + e.radius)
+				{
+					var impluse:Point2D = Point2D.scale(Vector2D.normalise(delta, new Point2D()), p.speed);
+					playerPos.x += impluse.x;
+					playerPos.y += impluse.y;
+					
+				}else
+				{
+					break;
+				}
+			}
+			
+			p.x = playerPos.x;
+			p.y = playerPos.y;
+			
+### Example 2 - with caching
+
+
+			//Mock objects representing the player and enemy data...
+			var p:Object = {x: 100, y: 200, vx: 0, vy: 0, speed: 50, radius: 10};
+			var e:Object = {x: 200, y: 200, vx: 0, vy: 0, radius: 10};
+			
 			var playerPos:Point2D = new Point2D(p.x, p.y);
 			var enemyPos:Point2D = new Point2D(e.x, e.y);
 			
-			var delta:Point2D = Point2D.sub(enemyPos, playerPos, cachedPoint);
+			var distance:Number = Number.MAX_VALUE;
+			var cache:Point2D = new Point2D();
 			
-			var distance:Number = Vector2D.findLength(delta);
 			
-			if (distance > p.radius + e.radius)
+			while (true)
 			{
-				var impluse:Point2D = Point2D.scale(Vector2D.normalise(delta, cachedPoint), p.speed);
-				p.vx = impluse.x;
-				p.vy = impluse.y;
+				trace("Player {x:" + playerPos.x + " + " + "y:" + playerPos.y + "}"); 
+				
+				var delta:Point2D = Point2D.sub(enemyPos, playerPos, cache);
+				
+				distance = Vector2D.findLength(delta);
+				
+				if (distance > p.radius + e.radius)
+				{
+					var impluse:Point2D = Point2D.scale(Vector2D.normalise(delta, cache), p.speed);
+					playerPos.x += impluse.x;
+					playerPos.y += impluse.y;
+					
+				}else
+				{
+					break;
+				}
 			}
 			
-This version saves 50% of Point2D instantiation by using and writing/reading to a cached point.
+			p.x = playerPos.x;
+			p.y = playerPos.y;
+			
+This version saves many creations of Point2D instantiation by using and writing/reading to a cached point.
 
 The Vector2D and Point2D objects are made to be fast and cache/pool friendly :)
 
