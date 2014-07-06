@@ -1,5 +1,6 @@
 package com.vec2d 
 {
+	
 	/**
 	 * A data structure to store X and Y components of a spatial
 	 * in 2D space.
@@ -27,11 +28,13 @@ package com.vec2d
 			return new Point2D(x, y);
 		}
 		
+		
 		/**
-		 * Resolves a + b.
+		 * Calculate a + b.
 		 * @param	a
 		 * @param	b
-		 * @param	out A Point2D where the result of a + b will be stored.
+		 * @param	out The Point2D instance to store the result.
+		 * @return  a + b
 		 */
 		[Inline]
 		public static function add(a:Point2D, b:Point2D, out:Point2D):Point2D
@@ -43,10 +46,11 @@ package com.vec2d
 		}
 		
 		/**
-		 * Resolves a - b;
+		 * Calculate a - b.
 		 * @param	a
 		 * @param	b
-		 * @param	out A Point2D where the result of a - b will be stored.
+		 * @param	out The Point2D instance to store the result.
+		 * @return  a - b
 		 */
 		[Inline]
 		public static function sub(a:Point2D, b:Point2D, out:Point2D):Point2D
@@ -58,10 +62,11 @@ package com.vec2d
 		}
 		
 		/**
-		 * Resolves a * b;
+		 * Calculate a * b.
 		 * @param	a
 		 * @param	b
-		 * @param	out A Point2D where the result of a * b will be stored.
+		 * @param	out The Point2D instance to store the result.
+		 * @return  a * b
 		 */
 		[Inline]
 		public static function mult(a:Point2D, b:Point2D, out:Point2D):Point2D
@@ -73,11 +78,15 @@ package com.vec2d
 		}
 		
 		/**
-		 * Resolves a / b.
-		 * Handles divide by zero errors.
+		 * Calculate a / b.
+		 * 
+		 * Note:
+		 * Handles divided by zero errors by returning 0.
+		 * 
 		 * @param	a
 		 * @param	b
-		 * @param	out A Point2D where the result of a /b will be stored.
+		 * @param	out The Point2D instance to store the result.
+		 * @return  a / b
 		 */
 		[Inline]
 		public static function divide(a:Point2D, b:Point2D, out:Point2D):Point2D
@@ -90,32 +99,30 @@ package com.vec2d
 		
 		
 		/**
-		 * Inverts the point p.
+		 * Invert the point p.
 		 * @param	p
+		 * @return the inverted point (same instance as p).
 		 */
 		[Inline]
-		public static function invert(p:Point2D):void
+		public static function invert(p:Point2D):Point2D
 		{
 			p.x = -p.x;
 			p.y = -p.y;
+			return p;
 		}
 		
 		/**
-		 * Scales the point p by a factor.
-		 * 
-		 * Ie: 
-		 * p = {x:1, y:2}
-		 * scale(p, 2)
-		 * p.x == 2
-		 * p.y == 4
+		 * Scale a point p by a factor.
 		 * @param	p
 		 * @param	factor
+		 * @return the scaled point (same instance as p).
 		 */
 		[Inline]
-		public static function scale(p:Point2D, factor:Number):void
+		public static function scale(p:Point2D, factor:Number):Point2D
 		{
 			p.x *= factor;
 			p.y *= factor;
+			return p;
 		}
 	}
 
