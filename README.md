@@ -36,7 +36,7 @@ Point2D instances to speed up performance as shown in the examples below!
 A general work flow would be to:
 
 1. Create Point2D instances to store the x and y components
-2. Use the Vector2D tool too perform operations on the Point2D instances
+2. Use the Vector2D tool to perform operations on the Point2D instances
 
 ## Scenario
 
