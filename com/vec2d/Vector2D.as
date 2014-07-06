@@ -183,7 +183,7 @@ package com.vec2d
 			
 			if (l1Squared == 0 && l2Squared == 0) return true;
 			
-			var ratio:Number = dSquared / (l1Squared* l1Squared);
+			var ratio:Number = dSquared / (l1Squared* l2Squared);
 			
 			const EPSILON:Number = 0.000000001;
 
@@ -206,7 +206,7 @@ package com.vec2d
 			
 			if (l1Squared == 0 && l2Squared == 0) return true;
 			
-			var ratio:Number = dSquared / (l1Squared* l1Squared);
+			var ratio:Number = dSquared / (l1Squared* l2Squared);
 			
 			const EPSILON:Number = 0.000000001;
 
