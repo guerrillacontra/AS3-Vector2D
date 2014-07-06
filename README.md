@@ -1,5 +1,5 @@
-AS3-Vector2D
-============
+# AS3-Vector2D
+
 
 A fast simple Vector2D tool for AS3 projects that supports inlining.
 
@@ -12,23 +12,36 @@ being easy to use.
 The design also allows developers to pool and cache instances in the way they like too,
 which can be hard to achieve in other implementations around.
 
+The following operations can be applied (and more):
+* to/from radians
+* normalising
+* projection
+* length/magnitude
+* left/right vectors
+* dot/scalar
+* reflection
+* parallel testing
+* orthogonal testing
+* sign between
 
-How to use
-==========
+
+
+## How to use
+
 
 A general work flow would be to:
 
-a - Create Point2D instances to store the x & y components
-b - Use the Vector2D tool too perform operations on the Point2D instances
+1. Create Point2D instances to store the x & y components
+2. Use the Vector2D tool too perform operations on the Point2D instances
 
-Example
-=======
+## Example
+
 
 A scenario where you want the player to move towards an enemy at a fixed speed
 until the player touches the enemy...
 
-#1 Without caching (the normal way unless you want to pool/cache points)
-========================================================================
+### Example without caching
+
 
 			//Mock objects representing the player and enemy data...
 			var p:Object = { x:100, y:200, vx:0, vy:0, speed:60, radius:32 };
@@ -48,8 +61,8 @@ until the player touches the enemy...
 				p.vy = impluse.y;
 			}
 			
-#2 With caching
-===============
+### Example with caching
+
 
 			//Mock objects representing the player and enemy data...
 			var p:Object = { x:100, y:200, vx:0, vy:0, speed:60, radius:32 };
