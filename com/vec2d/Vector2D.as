@@ -191,13 +191,13 @@ package com.vec2d
 		}
 		
 		/**
-		 * Find out if two vectors are othogonal.
+		 * Find out if two vectors are Orthogonal.
 		 * @param	v1
 		 * @param	v2
-		 * @return True if the vectors are othogonal to each other
+		 * @return True if the vectors are Orthogonal to each other
 		 */
 		[Inline]
-		public static function isOthogonal(v1:Point2D, v2:Point2D):Boolean
+		public static function isOrthogonal(v1:Point2D, v2:Point2D):Boolean
 		{
 			var dSquared:Number = Math.pow(dot(v1, v2), 2);
 			
