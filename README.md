@@ -45,11 +45,11 @@ until the player touches the enemy...
 
 The output from both examples will be:
 
->Player {x:100 + y:200}
+>Point2D:{x:100, y:200}
 
->Player {x:150 + y:200}
+>Point2D:{x:150, y:200}
 
->Player {x:200 + y:200}
+>Point2D:{x:200, y:200}
 
 ### Example 1 - without caching
 
@@ -66,7 +66,7 @@ The output from both examples will be:
 			
 			while (true)
 			{
-				trace("Player {x:" + playerPos.x + " + " + "y:" + playerPos.y + "}"); 
+				trace(playerPos); 
 				
 				var delta:Point2D = Point2D.sub(enemyPos, playerPos, new Point2D());
 				
@@ -103,7 +103,7 @@ The output from both examples will be:
 			
 			while (true)
 			{
-				trace("Player {x:" + playerPos.x + " + " + "y:" + playerPos.y + "}"); 
+				trace(playerPos);
 				
 				var delta:Point2D = Point2D.sub(enemyPos, playerPos, cache);
 				
