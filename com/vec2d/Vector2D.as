@@ -9,6 +9,7 @@ package com.vec2d
 	 */
 	public final class Vector2D
 	{
+		
 		/**
 		 * Create a normalised vector based on provided radians.
 		 * @param	radains
@@ -65,10 +66,10 @@ package com.vec2d
 		[Inline]
 		public static function normalise(v:Point2D, out:Point2D):Point2D
 		{
-			var len:Number = findLengthSquared(v);
+			var len:Number = findLength(v);
 			
-			out.x = len == 0 ? 0 : v.x * v.x / len;
-			out.y = len == 0 ? 0 : v.y * v.y / len;
+			out.x = len == 0 ? 0 : v.x / len;
+			out.y = len == 0 ? 0 : v.y  / len;
 			
 			return out;
 		}
@@ -140,10 +141,10 @@ package com.vec2d
 		[Inline]
 		public static function project(v1:Point2D, normal:Point2D, out:Point2D):Point2D
 		{
-			var dot:Number = dot(v1, normal);
+			var d:Number = dot(v1, normal);
 			
-			out.x = normal.x * dot;
-			out.y = normal.y * dot;
+			out.x = normal.x * d;
+			out.y = normal.y * d;
 			
 			return out;
 		}
@@ -228,9 +229,9 @@ package com.vec2d
 		public static function signBetween(v1:Point2D, v2:Point2D):int
 		{
 			var rn:Point2D = createRightVector(v1, _cachedV);
-			var dot:Number = dot(rn, v2);
+			var d:Number = dot(rn, v2);
 			
-			return dot == 0 ? 0 : dot < 0 ? -1 : 1;
+			return d == 0 ? 0 : d < 0 ? -1 : 1;
 		
 		}
 		
